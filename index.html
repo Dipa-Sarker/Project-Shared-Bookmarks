@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
   <head>
     <script type="module" src="script.js"></script>
@@ -14,7 +14,18 @@
       <option value="4">Noah</option>
       <option value="5">Emma</option>
     </select>
-    
-    <div id="bookmarks"></div>
+    <div id="bookmark-section" hidden>
+      <div id="bookmarks"></div>
+      <form id="addbookmark">
+        <label for="title">Title:</label>
+        <input id="title" type="text" name="title" required /><br />
+        <label for="description">Description:</label>
+        <input id="description" type="text" name="description" required /><br />
+        <label for="url">URL:</label>
+        <input id="url" type="url" name="url" required /><br />
+        <input type="submit" value="Add bookmark" />
+      </form>
+      <p id="message"></p>
+    </div>
   </body>
 </html>
