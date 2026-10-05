@@ -4,14 +4,27 @@
 // Note that when running locally, in order to open a web page which uses modules, you must serve the directory over HTTP e.g. with https://www.npmjs.com/package/http-server
 // You can't open the index.html file using a file:// URL.
 
-import { getUserIds, getData } from "./storage.js";
+
 
 /*window.onload = function () {
   const users = getUserIds();
 }; */ 
 
-import { setData } from "./storage.js";
+import { setData, getData } from "./storage.js";
 
+//DOM elements
+const select = document.getElementById("user-select");
+const bookmarksContainer = document.getElementById("bookmarks-container");
+
+//helper function for sorting in reverse chronological order
+  function sortBookmarksByDate(bookmarks) {
+  return [...bookmarks].sort(
+    (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
+  );
+}
+
+
+//Saving Bookmarks
 const user1Bookmarks = [
   {
   id: 1,
@@ -20,7 +33,106 @@ const user1Bookmarks = [
   url: "https://codeyourfuture.io",
   createdAt: "2026-10-03T10:00:00Z",
   likes: 0
-}
+},
+ {
+    id: 2,
+    title: "MDN",
+    description: "Web development documentation",
+    url: "https://developer.mozilla.org",
+    createdAt: "2026-10-04T09:00:00Z",
+    likes: 0,
+  }
 ];
 
 setData("1", user1Bookmarks);
+
+const user2Bookmarks = [
+  {
+    id: 1,
+    title: "BBC News",
+    description: "Latest news and updates",
+    url: "https://www.bbc.com",
+    createdAt: "2026-10-03T11:00:00Z",
+    likes: 0,
+  }
+];
+
+setData("2", user2Bookmarks);
+
+const user3Bookmarks = [
+  {
+    id: 1,
+    title: "YouTube",
+    description: "Video sharing platform",
+    url: "https://www.youtube.com",
+    createdAt: "2026-10-03T13:00:00Z",
+    likes: 0,
+  }
+];
+
+setData("3", user3Bookmarks);
+
+const user4Bookmarks = [
+  {
+    id: 1,
+    title: "GitHub",
+    description: "Code hosting platform",
+    url: "https://github.com",
+    createdAt: "2026-10-03T14:00:00Z",
+    likes: 0,
+  }
+];
+
+setData("4", user4Bookmarks);
+
+const user5Bookmarks = [
+  {
+    id: 1,
+    title: "Stack Overflow",
+    description: "Questions and answers for programmers",
+    url: "https://stackoverflow.com",
+    createdAt: "2026-10-03T14:00:00Z",
+    likes: 0,
+  }
+];
+
+setData("5", user5Bookmarks);
+
+//Retrieving bookmarks
+select.addEventListener("change", () => {
+    
+  const userId = select.value;
+
+  const bookmarks = getData(userId);
+
+  console.log(bookmarks);
+
+  bookmarksContainer.innerHTML = "";
+
+  //display message for no bookmarks
+  if (!bookmarks || bookmarks.length === 0) {
+    bookmarksContainer.textContent = "This user has no bookmarks.";
+    return;
+  }
+
+  //Sort newest first
+  const sortedBookmarks = sortBookmarksByDate(bookmarks);
+
+//display title, description, timestamp of bookmarks
+  sortedBookmarks.forEach((bookmark) => {
+  const bookmarkDiv = document.createElement("div");
+
+  const title = document.createElement("h3");
+  title.textContent = bookmark.title;
+
+  const description = document.createElement("p");
+  description.textContent = bookmark.description;
+
+  const createdAt = document.createElement("small");
+  createdAt.textContent = `Created: ${bookmark.createdAt}`;
+
+  bookmarkDiv.append(title, description, createdAt);
+
+  bookmarksContainer.appendChild(bookmarkDiv);
+});
+});
