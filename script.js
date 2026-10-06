@@ -108,12 +108,15 @@ select.addEventListener("change", () => {
   //Sort newest first
   const sortedBookmarks = sortBookmarksByDate(bookmarks);
 
-  //display title, description, timestamp of bookmarks
+  //display title(URL), description, timestamp of bookmarks
   sortedBookmarks.forEach((bookmark) => {
     const bookmarkDiv = document.createElement("div");
 
-    const title = document.createElement("h3");
+    const heading = document.createElement("h3");
+    const title = document.createElement("a");
     title.textContent = bookmark.title;
+    title.href = bookmark.url;
+    heading.append(title);
 
     const description = document.createElement("p");
     description.textContent = bookmark.description;
@@ -121,7 +124,7 @@ select.addEventListener("change", () => {
     const createdAt = document.createElement("small");
     createdAt.textContent = `Created: ${bookmark.createdAt}`;
 
-    bookmarkDiv.append(title, description, createdAt);
+    bookmarkDiv.append(heading, description, createdAt);
 
     bookmarksContainer.appendChild(bookmarkDiv);
   });
