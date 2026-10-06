@@ -127,5 +127,54 @@ select.addEventListener("change", () => {
     bookmarkDiv.append(heading, description, createdAt);
 
     bookmarksContainer.appendChild(bookmarkDiv);
+
+    setData("1", user1Bookmarks);
+  });
+});
+
+const userSelect = document.querySelector("#user-select");
+const form = document.querySelector("#addbookmark");
+const bookmarkSection = document.getElementById("bookmark-section");
+userSelect.addEventListener("change", () => {
+  bookmarkSection.hidden = false;
+});
+// Take over form submission
+form.addEventListener("submit", (event) => {
+  event.preventDefault();
+  const formData = new FormData(form);
+  const userId = userSelect.value;
+  const bookmarks = getData(userId) || [];
+  const message = document.getElementById("message");
+  const bookmarksContainer = document.getElementById("bookmarks");
+  const newBookmark = {
+    id: crypto.randomUUID(),
+    title: formData.get("title"),
+    description: formData.get("description"),
+    url: formData.get("url"),
+    createdAt: new Date().toISOString(),
+    likes: 0,
+  };
+  bookmarks.push(newBookmark);
+  setData(userId, bookmarks);
+  message.textContent = "Bookmark successfully added!";
+  bookmarksContainer.innerHTML = "";
+  bookmarks.forEach((bookmark) => {
+    const article = document.createElement("article");
+
+    const heading = document.createElement("h3");
+    const link = document.createElement("a");
+
+    link.href = bookmark.url;
+    link.textContent = bookmark.title;
+
+    heading.append(link);
+
+    const description = document.createElement("p");
+    description.textContent = bookmark.description;
+
+    article.append(heading);
+    article.append(description);
+
+    bookmarksContainer.append(article);
   });
 });
