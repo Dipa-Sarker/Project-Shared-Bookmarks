@@ -7,7 +7,7 @@
 /*window.onload = function () {
   const users = getUserIds();
 }; */
-
+console.log("script is running");
 import { setData, getData } from "./storage.js";
 import { sortBookmarksByDate } from "./unit-tests.js";
 
@@ -95,32 +95,25 @@ const user5Bookmarks = [
 if (!getData("5")) {
   setData("5", user5Bookmarks);
 }
-
-//Retrieving bookmarks
-select.addEventListener("change", () => {
-  const userId = select.value;
-
+function displayBookmarks(userId) {
+  console.log("displayBookmarks called", userId);
   const bookmarks = getData(userId);
 
-  console.log(bookmarks);
-
   bookmarksContainer.innerHTML = "";
-
   //display message for no bookmarks
   if (!bookmarks || bookmarks.length === 0) {
     bookmarksContainer.textContent = "This user has no bookmarks.";
     return;
   }
-
   //Sort newest first
   const sortedBookmarks = sortBookmarksByDate(bookmarks);
-
   //display title(URL), description, timestamp of bookmarks
   sortedBookmarks.forEach((bookmark) => {
     const bookmarkDiv = document.createElement("div");
 
     const heading = document.createElement("h3");
     const title = document.createElement("a");
+
     title.textContent = bookmark.title;
     title.href = bookmark.url;
     heading.append(title);
@@ -132,11 +125,15 @@ select.addEventListener("change", () => {
     createdAt.textContent = `Created: ${bookmark.createdAt}`;
 
     bookmarkDiv.append(heading, description, createdAt);
-
     bookmarksContainer.appendChild(bookmarkDiv);
   });
-});
+}
 
+//Retrieving bookmarks
+select.addEventListener("change", () => {
+  const userId = select.value;
+  displayBookmarks(userId);
+});
 const userSelect = document.querySelector("#user-select");
 const form = document.querySelector("#addbookmark");
 const bookmarkSection = document.getElementById("bookmark-section");
@@ -150,7 +147,6 @@ form.addEventListener("submit", (event) => {
   const userId = userSelect.value;
   const bookmarks = getData(userId) || [];
   const message = document.getElementById("message");
-  const bookmarksContainer = document.getElementById("bookmarks");
   const newBookmark = {
     id: crypto.randomUUID(),
     title: formData.get("title"),
@@ -162,24 +158,6 @@ form.addEventListener("submit", (event) => {
   bookmarks.push(newBookmark);
   setData(userId, bookmarks);
   message.textContent = "Bookmark successfully added!";
-  bookmarksContainer.innerHTML = "";
-  bookmarks.forEach((bookmark) => {
-    const article = document.createElement("article");
-
-    const heading = document.createElement("h3");
-    const link = document.createElement("a");
-
-    link.href = bookmark.url;
-    link.textContent = bookmark.title;
-
-    heading.append(link);
-
-    const description = document.createElement("p");
-    description.textContent = bookmark.description;
-
-    article.append(heading);
-    article.append(description);
-
-    bookmarksContainer.append(article);
-  });
+  displayBookmarks(userId);
 });
+console.log(select);

@@ -1,31 +1,36 @@
 <!doctype html>
 <html>
   <head>
+    <meta charset="UTF-8" />
+    <title>Bookmark Manager</title>
     <script type="module" src="script.js"></script>
-    <script type="module" src="storage.js"></script>
   </head>
   <body>
-    <h1>Bookmarks</h1>
-    <label for="user-select">Select a user:</label>
-    <select id="user-select">
-      <option value="1">Jack</option>
-      <option value="2">Mary</option>
-      <option value="3">Oliver</option>
-      <option value="4">Noah</option>
-      <option value="5">Emma</option>
-    </select>
-    <div id="bookmark-section" hidden>
-      <div id="bookmarks"></div>
-      <form id="addbookmark">
-        <label for="title">Title:</label>
-        <input id="title" type="text" name="title" required /><br />
-        <label for="description">Description:</label>
-        <input id="description" type="text" name="description" required /><br />
-        <label for="url">URL:</label>
-        <input id="url" type="url" name="url" required /><br />
-        <input type="submit" value="Add bookmark" />
-      </form>
-      <p id="message"></p>
-    </div>
+    <main>
+      <h1>Bookmarks</h1>
+      <label for="user-select">Select a user:</label>
+      <select id="user-select">
+        <option value="1">Jack</option>
+        <option value="2">Mary</option>
+        <option value="3">Oliver</option>
+        <option value="4">Noah</option>
+        <option value="5">Emma</option>
+      </select>
+
+      <div id="bookmarks-container"></div>
+      <div id="bookmark-section" hidden>
+        <div id="bookmarks"></div>
+        <form id="addbookmark">
+          <label for="title">Title:</label>
+          <input id="title" type="text" name="title" required /><br />
+          <label for="description">Description:</label>
+          <input id="description" type="text" name="description" required /><br />
+          <label for="url">URL:</label>
+          <input id="url" type="url" name="url" required /><br />
+          <input type="submit" value="Add bookmark" />
+        </form>
+        <p id="message"></p>
+    </main>
   </body>
 </html>
+
