@@ -122,7 +122,7 @@ function displayBookmarks(userId) {
   sortedBookmarks.forEach((bookmark) => {
     const bookmarkDiv = document.createElement("div");
     const titleContainer = document.createElement("div");
-    const heading = document.createElement("h3");
+    const heading = document.createElement("h2");
     const title = document.createElement("a");
     title.textContent = bookmark.title;
     title.href = bookmark.url;
