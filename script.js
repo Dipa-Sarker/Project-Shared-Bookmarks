@@ -8,7 +8,7 @@
   const users = getUserIds();
 }; */
 import { setData, getData } from "./storage.js";
-
+import { sortBookmarksByDate } from "./helpers.js";
 //DOM elements
 const select = document.getElementById("user-select");
 const bookmarksContainer = document.getElementById("bookmarks-container");
@@ -95,12 +95,6 @@ const user5Bookmarks = [
 ];
 if (!getData("5")) {
   setData("5", user5Bookmarks);
-}
-//helper function for sorting in reverse chronological order
-function sortBookmarksByDate(bookmarks) {
-  return [...bookmarks].sort(
-    (a, b) => new Date(b.createdAt) - new Date(a.createdAt),
-  );
 }
 //function to like bookmark created
 function likeBookmark(userId, bookmarkId) {
