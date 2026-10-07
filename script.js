@@ -19,7 +19,7 @@ const addBookmarkButton = document.getElementById("add-bookmark-button");
 //Saving Bookmarks
 const user1Bookmarks = [
   {
-    id: crypto.randomUUID(),
+    id: 1,
     title: "CodeYourFuture",
     description: "Learning programming",
     url: "https://codeyourfuture.io",
