@@ -112,7 +112,7 @@ function likeBookmark(userId, bookmarkId) {
   bookmarks[bookmarkIndex].likes++;
   setData(userId, bookmarks);
 }
-
+//function to display bookmark so it is reusable and DRY is obeyed.
 function displayBookmarks(userId) {
   const bookmarks = getData(userId);
 
@@ -127,29 +127,39 @@ function displayBookmarks(userId) {
   //display title(URL), description, timestamp of bookmarks
   sortedBookmarks.forEach((bookmark) => {
     const bookmarkDiv = document.createElement("div");
+    const titleContainer = document.createElement("div");
     const heading = document.createElement("h3");
     const title = document.createElement("a");
-
     title.textContent = bookmark.title;
     title.href = bookmark.url;
     heading.append(title);
-
+    //creating the copybutton
+    const copyButton = document.createElement("button");
+    copyButton.textContent = "Copy URL";
+    copyButton.addEventListener("click", () => {
+      navigator.clipboard.writeText(bookmark.url);
+    });
+    //a titlecontainer so that the title and copy buttton are kept together
+    titleContainer.append(heading, copyButton);
     const description = document.createElement("p");
     description.textContent = bookmark.description;
 
     const createdAt = document.createElement("small");
-    createdAt.textContent = `Created: ${bookmark.createdAt}`;
+    const date = new Date(bookmark.createdAt);
+    //Timestamp converted to easy to read format for accessiblity
+    createdAt.textContent = `Created: ${date.toLocaleString("en-GB", {
+      dateStyle: "medium",
+      timeStyle: "short",
+    })}`;
     //creating the like button
     const likeButton = document.createElement("button");
     likeButton.textContent = `❤️ ${bookmark.likes} Likes`;
+    //likebutton evenlistener that ensure the correct bookmark is liked
     likeButton.addEventListener("click", () => {
       likeBookmark(userId, bookmark.id);
       displayBookmarks(userId);
     });
-
-    // ...
-
-    bookmarkDiv.append(heading, description, createdAt);
+    bookmarkDiv.append(titleContainer, description, createdAt);
     bookmarksContainer.appendChild(bookmarkDiv);
     bookmarkDiv.append(likeButton);
   });
