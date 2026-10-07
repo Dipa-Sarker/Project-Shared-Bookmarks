@@ -9,7 +9,7 @@
 }; */
 
 import { setData, getData } from "./storage.js";
-import { sortBookmarksByDate } from "./unit-tests.js";
+import { sortBookmarksByDate } from "./helpers.js";
 
 //DOM elements
 const select = document.getElementById("user-select");

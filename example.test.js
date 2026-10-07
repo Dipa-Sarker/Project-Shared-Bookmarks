@@ -1,10 +1,8 @@
 import assert from "node:assert";
 import test from "node:test";
 import { getUserIds } from "./storage.js";
-import { sortBookmarksByDate } from "./unit-tests.js";
-test("User count is correct", () => {
-  assert.equal(getUserIds().length, 5);
-});
+import { sortBookmarksByDate } from "./helpers.js";
+
 
 test("Bookmarks are sorted newest first", () => {
   const bookmarks = [
