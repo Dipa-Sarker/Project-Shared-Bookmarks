@@ -1,13 +1,13 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <title>Bookmark Manager</title>
     <script type="module" src="script.js"></script>
-    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="style.css">
   </head>
   <body>
-    <main>
+    <main class="container">
       <h1>Bookmarks</h1>
       <label for="user-select">Select a user:</label>
       <select id="user-select">
@@ -19,24 +19,20 @@
       </select>
 
       <div id="bookmarks-container"></div>
+      <button id="add-bookmark-button" hidden>Add new bookmark</button>
       <div id="bookmark-section" hidden>
         <div id="bookmarks"></div>
         <form id="addbookmark">
           <label for="title">Title:</label>
-          <input id="title" type="text" name="title" required />
+          <input id="title" type="text" name="title" required /><br />
           <label for="description">Description:</label>
-          <input
-            id="description"
-            type="text"
-            name="description"
-            required
-          />
+          <input id="description" type="text" name="description" required /><br />
           <label for="url">URL:</label>
-          <input id="url" type="url" name="url" required />
-          <input type="submit" value="Add bookmark" />
+          <input id="url" type="url" name="url" required /><br />
+          <input type="submit" value="Submit new bookmark" />
         </form>
         <p id="message"></p>
-      </div>
     </main>
   </body>
 </html>
+
