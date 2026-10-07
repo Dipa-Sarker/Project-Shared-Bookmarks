@@ -1,4 +1,4 @@
-# Testing (Dipa)
+# Testing
 
 ## The website contains a drop-down which lists five users
 
