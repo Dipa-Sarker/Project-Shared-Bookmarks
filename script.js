@@ -63,16 +63,7 @@ const user3Bookmarks = [
 
 setData("3", user3Bookmarks);
 
-const user4Bookmarks = [
-  {
-    id: 1,
-    title: "GitHub",
-    description: "Code hosting platform",
-    url: "https://github.com",
-    createdAt: "2026-10-03T14:00:00Z",
-    likes: 0,
-  },
-];
+const user4Bookmarks = [];
 
 setData("4", user4Bookmarks);
 
