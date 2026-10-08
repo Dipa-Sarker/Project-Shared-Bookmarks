@@ -8,34 +8,6 @@ const form = document.querySelector("#addbookmark");
 const bookmarkSection = document.getElementById("bookmark-section");
 const addBookmarkButton = document.getElementById("add-bookmark-button");
 
-//Sample bookmark data
-const user1Bookmarks = [];
-
-if (!getData("1")) {
-  setData("1", user1Bookmarks);
-}
-
-const user2Bookmarks = [];
-
-if (!getData("2")) {
-  setData("2", user2Bookmarks);
-}
-
-const user3Bookmarks = [];
-if (!getData("3")) {
-  setData("3", user3Bookmarks);
-}
-
-const user4Bookmarks = [];
-if (!getData("4")) {
-  setData("4", user4Bookmarks);
-}
-
-const user5Bookmarks = [];
-if (!getData("5")) {
-  setData("5", user5Bookmarks);
-}
-
 //function to like bookmark created
 function likeBookmark(userId, bookmarkId) {
   const bookmarks = getData(userId);
