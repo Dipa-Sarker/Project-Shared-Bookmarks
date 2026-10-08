@@ -2,6 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bookmark Manager</title>
     <script type="module" src="script.js"></script>
     <link rel="stylesheet" href="style.css" />
@@ -9,8 +10,9 @@
   <body>
     <main class="container">
       <h1>Bookmarks</h1>
-      <label for="user-select">Select a user:</label>
+      <label for="user-select">Select a User:</label>
       <select id="user-select">
+        <option value="" selected disabled>Users</option>
         <option value="1">Jack</option>
         <option value="2">Mary</option>
         <option value="3">Oliver</option>

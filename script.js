@@ -9,54 +9,19 @@ const bookmarkSection = document.getElementById("bookmark-section");
 const addBookmarkButton = document.getElementById("add-bookmark-button");
 
 //Sample bookmark data
-const user1Bookmarks = [
-  {
-    id: crypto.randomUUID(),
-    title: "CodeYourFuture",
-    description: "Learning programming",
-    url: "https://codeyourfuture.io",
-    createdAt: "2026-10-03T10:00:00Z",
-    likes: 0,
-  },
-  {
-    id: crypto.randomUUID(),
-    title: "MDN",
-    description: "Web development documentation",
-    url: "https://developer.mozilla.org",
-    createdAt: "2026-10-04T09:00:00Z",
-    likes: 0,
-  },
-];
+const user1Bookmarks = [];
 
 if (!getData("1")) {
   setData("1", user1Bookmarks);
 }
 
-const user2Bookmarks = [
-  {
-    id: crypto.randomUUID(),
-    title: "BBC News",
-    description: "Latest news and updates",
-    url: "https://www.bbc.com",
-    createdAt: "2026-10-03T11:00:00Z",
-    likes: 0,
-  },
-];
+const user2Bookmarks = [];
 
 if (!getData("2")) {
   setData("2", user2Bookmarks);
 }
 
-const user3Bookmarks = [
-  {
-    id: crypto.randomUUID(),
-    title: "YouTube",
-    description: "Video sharing platform",
-    url: "https://www.youtube.com",
-    createdAt: "2026-10-03T13:00:00Z",
-    likes: 0,
-  },
-];
+const user3Bookmarks = [];
 if (!getData("3")) {
   setData("3", user3Bookmarks);
 }
@@ -66,16 +31,7 @@ if (!getData("4")) {
   setData("4", user4Bookmarks);
 }
 
-const user5Bookmarks = [
-  {
-    id: crypto.randomUUID(),
-    title: "Stack Overflow",
-    description: "Questions and answers for programmers",
-    url: "https://stackoverflow.com",
-    createdAt: "2026-10-03T14:00:00Z",
-    likes: 0,
-  },
-];
+const user5Bookmarks = [];
 if (!getData("5")) {
   setData("5", user5Bookmarks);
 }
@@ -153,8 +109,9 @@ function displayBookmarks(userId) {
 
 //user selection from dropdown
 select.addEventListener("change", () => {
-  addBookmarkButton.hidden = false;
   const userId = select.value;
+  if (!userId) return;
+  addBookmarkButton.hidden = false;
   displayBookmarks(userId);
 });
 
@@ -181,5 +138,6 @@ form.addEventListener("submit", (event) => {
   bookmarks.push(newBookmark);
   setData(userId, bookmarks);
   message.textContent = "Bookmark successfully added!";
+  bookmarkSection.hidden = true;
   displayBookmarks(userId);
 });
