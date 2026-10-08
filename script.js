@@ -1,6 +1,6 @@
-
 import { setData, getData } from "./storage.js";
 import { sortBookmarksByDate } from "./helpers.js";
+
 //DOM elements
 const select = document.getElementById("user-select");
 const bookmarksContainer = document.getElementById("bookmarks-container");
@@ -8,10 +8,10 @@ const form = document.querySelector("#addbookmark");
 const bookmarkSection = document.getElementById("bookmark-section");
 const addBookmarkButton = document.getElementById("add-bookmark-button");
 
-//Saving Bookmarks
+//Sample bookmark data
 const user1Bookmarks = [
   {
-    id: 1,
+    id: crypto.randomUUID(),
     title: "CodeYourFuture",
     description: "Learning programming",
     url: "https://codeyourfuture.io",
@@ -61,16 +61,7 @@ if (!getData("3")) {
   setData("3", user3Bookmarks);
 }
 
-const user4Bookmarks = [
-  {
-    id: crypto.randomUUID(),
-    title: "GitHub",
-    description: "Code hosting platform",
-    url: "https://github.com",
-    createdAt: "2026-10-03T14:00:00Z",
-    likes: 0,
-  },
-];
+const user4Bookmarks = [];
 if (!getData("4")) {
   setData("4", user4Bookmarks);
 }
@@ -88,17 +79,19 @@ const user5Bookmarks = [
 if (!getData("5")) {
   setData("5", user5Bookmarks);
 }
+
 //function to like bookmark created
 function likeBookmark(userId, bookmarkId) {
   const bookmarks = getData(userId);
   const bookmarkIndex = bookmarks.findIndex(
-    (bookmark) => bookmark.id === bookmarkId,
+    (bookmark) => bookmark.id === bookmarkId
   );
 
   bookmarks[bookmarkIndex].likes++;
   setData(userId, bookmarks);
 }
-//function to display bookmark so it is reusable and DRY is obeyed.
+
+//function to display bookmark so it is reusable and DRY is obeyed
 function displayBookmarks(userId) {
   const bookmarks = getData(userId);
 
@@ -108,59 +101,69 @@ function displayBookmarks(userId) {
     bookmarksContainer.textContent = "This user has no bookmarks.";
     return;
   }
-  //Sort newest first
+  //sort newest first
   const sortedBookmarks = sortBookmarksByDate(bookmarks);
-  //display title(URL), description, timestamp of bookmarks
+
   sortedBookmarks.forEach((bookmark) => {
     const bookmarkDiv = document.createElement("div");
-    const titleContainer = document.createElement("div");
+
+    //display title(URL), description, timestamp of bookmarks
+    //creating elements
     const heading = document.createElement("h2");
     const title = document.createElement("a");
     title.textContent = bookmark.title;
     title.href = bookmark.url;
     heading.append(title);
-    //creating the copybutton
+
+    //creating the copybutton(URL)
     const copyButton = document.createElement("button");
     copyButton.textContent = "Copy to clipboard";
     copyButton.addEventListener("click", () => {
       navigator.clipboard.writeText(bookmark.url);
     });
-    //a titlecontainer so that the title and copy buttton are kept together
-    titleContainer.append(heading, copyButton);
+
+    //description
     const description = document.createElement("p");
     description.textContent = bookmark.description;
 
-    const createdAt = document.createElement("small");
+    //created date
+    const createdAt = document.createElement("p");
     const date = new Date(bookmark.createdAt);
-    //Timestamp converted to easy to read format for accessiblity
     createdAt.textContent = `Created: ${date.toLocaleString("en-GB", {
       dateStyle: "medium",
       timeStyle: "short",
     })}`;
-    //creating the like button
+
+    //create a Like button showing the current number of likes
     const likeButton = document.createElement("button");
     likeButton.textContent = `❤️ ${bookmark.likes} Likes`;
-    //likebutton evenlistener that ensure the correct bookmark is liked
+
+    //increase likes for this bookmark and refresh the displayed bookmarks
     likeButton.addEventListener("click", () => {
       likeBookmark(userId, bookmark.id);
       displayBookmarks(userId);
     });
-    bookmarkDiv.append(titleContainer, description, createdAt);
+
+    // Add everything to bookmark card
+    bookmarkDiv.append(heading, copyButton, description, createdAt, likeButton);
+
     bookmarksContainer.appendChild(bookmarkDiv);
-    bookmarkDiv.append(likeButton);
   });
 }
 
-//Retrieving bookmarks
+//user selection from dropdown
 select.addEventListener("change", () => {
   addBookmarkButton.hidden = false;
   const userId = select.value;
   displayBookmarks(userId);
 });
+
+//show form when user click Add New Bookmark
 addBookmarkButton.addEventListener("click", () => {
   bookmarkSection.hidden = false;
 });
-// Take over form submission
+
+// for adding bookmark
 form.addEventListener("submit", (event) => {
   event.preventDefault();
   const formData = new FormData(form);

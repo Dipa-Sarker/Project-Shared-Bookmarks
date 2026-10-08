@@ -1,8 +1,7 @@
 import assert from "node:assert";
 import test from "node:test";
-import { getUserIds } from "./storage.js";
-import { sortBookmarksByDate } from "./helpers.js";
 
+import { sortBookmarksByDate } from "./helpers.js";
 
 test("Bookmarks are sorted newest first", () => {
   const bookmarks = [

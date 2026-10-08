@@ -20,7 +20,7 @@ Tested manually by selecting a user with no bookmarks and verifying that the "Th
 
 ## The list of bookmarks is shown in reverse chronological order
 
-Unit tests in `example.test.js`.
+Unit tests in `unit.test.js`.
 Also verified manually by checking that newer bookmarks appear before older bookmarks.
 
 ## Each bookmark displays a title, description and timestamp
@@ -67,7 +67,7 @@ Tested manually by:
 
 ## Accessibility
 
-Tested using Lighthouse (Desktop mode).
+Tested using Lighthouse (Desktop mode & mobile).
 Accessibility score: 100%.
 
 ## Unit tests
@@ -82,4 +82,4 @@ All tests pass successfully.
 
 Unit tests are located in:
 
-- `example.test.js`
+- `unit.test.js`
