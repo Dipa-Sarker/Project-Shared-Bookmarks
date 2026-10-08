@@ -1,4 +1,4 @@
-import { setData, getData, clearData } from "./storage.js";
+import { setData, getData } from "./storage.js";
 import { sortBookmarksByDate } from "./helpers.js";
 
 //DOM elements
@@ -113,8 +113,4 @@ form.addEventListener("submit", (event) => {
   bookmarkSection.hidden = true;
   displayBookmarks(userId);
 });
-  clearData("1");
-  clearData("2");
-  clearData("3");
-  clearData("4");
-  clearData("5");
+
